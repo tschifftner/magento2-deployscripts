@@ -1,0 +1,27 @@
+{
+  "name": "tschifftner/magento2-deployscripts",
+  "description": "Collection of scripts for Magento 2 builds and deployments",
+  "type": "magento2-component",
+  "version": "100.0.1",
+  "require": {
+    "magento/magento-composer-installer": "*",
+    "php": "~5.5.0|~5.6.0|~7.0.0"
+  },
+  "extra": {
+    "map": [
+      [
+        "install.sh",
+        "bin/install.sh"
+      ],
+      [
+        "n98-magerun2.phar",
+        "bin/n98-magerun2.phar"
+      ]
+    ]
+  },
+  "authors":[
+    {
+      "name": "Tobias Schifftner"
+    }
+  ]
+}
