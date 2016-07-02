@@ -157,8 +157,8 @@ fi
 # Step 3: Trigger installation
 ########################################################################################################################
 
-if [ ! -f "${RELEASEFOLDER}/bin/install.sh" ] ; then echo "Could not find installer" ; exit 1; fi
-${RELEASEFOLDER}/bin/install.sh -e "${ENVIRONMENT}" || { echo "Installing package failed"; exit 1; }
+if [ ! -f "${RELEASEFOLDER}/vendor/bin/install.sh" ] ; then echo "Could not find installer" ; exit 1; fi
+${RELEASEFOLDER}/vendor/bin/install.sh -e "${ENVIRONMENT}" || { echo "Installing package failed"; exit 1; }
 
 
 
