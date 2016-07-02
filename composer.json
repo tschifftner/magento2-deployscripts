@@ -7,9 +7,18 @@
     "magento/magento-composer-installer": "*",
     "php": "~5.5.0|~5.6.0|~7.0.0"
   },
-  "bin": [
-    "install.sh"
-  ],
+  "extra": {
+    "map": [
+      [
+        "install.sh",
+        "bin/install.sh"
+      ],
+      [
+        "n98-magerun2.phar",
+        "bin/n98-magerun2.phar"
+      ]
+    ]
+  },
   "authors":[
     {
       "name": "Tobias Schifftner"
