@@ -49,7 +49,11 @@ $PHP_COMMAND bin/composer.phar install --verbose --no-ansi --no-interaction --pr
 if [ ! -f 'pub/index.php' ] ; then echo "Could not find pub/index.php"; exit 1 ; fi
 
 # Enable production mode
-php bin/magento deploy:mode:set production
+#php bin/magento deploy:mode:set production
+
+touch .maintenance.flag
+php bin/magento setup:di:compile
+php bin/magento setup:static-content:deploy
 
 # Write file: build.txt
 echo "${BUILD_NUMBER}" > build.txt
