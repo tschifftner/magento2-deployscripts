@@ -1,5 +1,7 @@
 # Magento2 Deploy Scripts
 
+Scripts to deploy Magento2 projects with Jenkins / CI Pipeline. 
+
 Deploy scripts are based on the superb work of [@fbrnc](https://twitter.com/fbrnc) and AOE (https://github.com/AOEpeople/magento-deployscripts) for Magento 1
 
 ## How it works
@@ -17,7 +19,7 @@ magento2-deployscripts/deploy.sh -r /tmp/artifacts/project.tar.gz -e devbox -d -
 ```
 5) Jenkins triggers cleanup script on remote server
 
-# Defining settings with zettr.phar
+## Defining settings with zettr.phar
 
 Define configuration in config/settings.csv regarding the
 zettr documentation
