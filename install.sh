@@ -70,8 +70,8 @@ echo "Applying settings"
 echo "-----------------"
 cd "${RELEASEFOLDER}" || { echo "Error while switching to root directory" ; exit 1; }
 if [ -f config/settings.csv ]; then
-    vendor/bin/zettr.phar ${ENVIRONMENT} config/settings.csv --groups db || { echo "Error while applying settings" ; exit 1; }
-    vendor/bin/zettr.phar ${ENVIRONMENT} config/settings.csv || { echo "Error while applying settings" ; exit 1; }
+    vendor/bin/zettr.phar apply ${ENVIRONMENT} config/settings.csv --groups db || { echo "Error while applying settings" ; exit 1; }
+    vendor/bin/zettr.phar apply ${ENVIRONMENT} config/settings.csv || { echo "Error while applying settings" ; exit 1; }
 else
     echo "No config/settings.csv found!"
 fi
