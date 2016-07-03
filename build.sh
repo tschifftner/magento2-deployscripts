@@ -39,21 +39,16 @@ else
     PHP_COMMAND=php
 fi
 
-# prevent overriding any local changes
-sed -i.bak 's/"extra": {/"extra": {"magento-deploystrategy": "none",/' composer.json
-
 # Run composer
 $PHP_COMMAND bin/composer.phar install --verbose --no-ansi --no-interaction --prefer-source || { echo "Composer failed"; exit 1; }
 
 # Some basic checks
 if [ ! -f 'pub/index.php' ] ; then echo "Could not find pub/index.php"; exit 1 ; fi
 
-# Enable production mode
-#php bin/magento deploy:mode:set production
-
+# Prepare for production
 touch .maintenance.flag
-#php bin/magento setup:di:compile
-#php bin/magento setup:static-content:deploy
+php bin/magento setup:di:compile
+php bin/magento setup:static-content:deploy
 
 # Write file: build.txt
 echo "${BUILD_NUMBER}" > build.txt
