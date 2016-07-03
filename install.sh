@@ -50,16 +50,16 @@ fi
 
 if [ ! -d "${SHAREDFOLDER}" ] ; then echo "Shared directory ${SHAREDFOLDER} not found"; exit 1; fi
 if [ ! -d "${SHAREDFOLDER}/media" ] ; then echo "Shared directory ${SHAREDFOLDER}/media not found"; exit 1; fi
-if [ ! -d "${SHAREDFOLDER}/var" ] ; then echo "Shared directory ${SHAREDFOLDER}/var not found"; exit 1; fi
+if [ ! -d "${SHAREDFOLDER}/var/log" ] ; then echo "Shared directory ${SHAREDFOLDER}/var/log not found"; exit 1; fi
 
 if [ -d "${RELEASEFOLDER}/pub/media" ]; then echo "Found existing media folder that shouldn't be there"; exit 1; fi
-if [ -d "${RELEASEFOLDER}/var" ]; then echo "Found existing var folder that shouldn't be there"; exit 1; fi
+if [ -d "${RELEASEFOLDER}/var/log" ]; then echo "Found existing var folder that shouldn't be there"; exit 1; fi
 
 echo "Setting symlink (${RELEASEFOLDER}/pub/media) to shared media folder (${SHAREDFOLDER}/media)"
 ln -s "${SHAREDFOLDER}/media" "${RELEASEFOLDER}/pub/media"  || { echo "Error while linking to shared media directory" ; exit 1; }
 
-echo "Setting symlink (${RELEASEFOLDER}/var) to shared var folder (${SHAREDFOLDER}/var)"
-ln -s "${SHAREDFOLDER}/var" "${RELEASEFOLDER}/var"  || { echo "Error while linking to shared var directory" ; exit 1; }
+echo "Setting symlink (${RELEASEFOLDER}/var/log) to shared var folder (${SHAREDFOLDER}/var/log)"
+ln -s "${SHAREDFOLDER}/var/log" "${RELEASEFOLDER}/var/log"  || { echo "Error while linking to shared var directory" ; exit 1; }
 
 
 ########################################################################################################################
@@ -70,7 +70,7 @@ echo
 echo "Triggering Magento setup scripts via magento-cli"
 echo "------------------------------------------------"
 cd -P "${RELEASEFOLDER}/" || { echo "Error while switching to htdocs directory" ; exit 1; }
-php bin/magento setup:upgrade || { echo "Error while triggering the update scripts using magento-cli" ; exit 1; }
+php bin/magento setup:upgrade --keep-generated || { echo "Error while triggering the update scripts using magento-cli" ; exit 1; }
 
 echo
 echo "Successfully completed installation."

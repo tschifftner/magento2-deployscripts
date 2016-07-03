@@ -52,8 +52,8 @@ if [ ! -f 'pub/index.php' ] ; then echo "Could not find pub/index.php"; exit 1 ;
 #php bin/magento deploy:mode:set production
 
 touch .maintenance.flag
-php bin/magento setup:di:compile
-php bin/magento setup:static-content:deploy
+#php bin/magento setup:di:compile
+#php bin/magento setup:static-content:deploy
 
 # Write file: build.txt
 echo "${BUILD_NUMBER}" > build.txt
@@ -76,7 +76,7 @@ fi
 BASEPACKAGE="artifacts/${FILENAME}"
 echo "Creating base package '${BASEPACKAGE}'"
 tar -vczf "${BASEPACKAGE}" \
-    --exclude=./var \
+    --exclude=./var/log \
     --exclude=./pub/media \
     --exclude=./artifacts \
     --exclude=./tmp \
@@ -85,7 +85,7 @@ tar -vczf "${BASEPACKAGE}" \
 EXTRAPACKAGE=${BASEPACKAGE/.tar.gz/.extra.tar.gz}
 echo "Creating extra package '${EXTRAPACKAGE}' with the remaining files"
 tar -czf "${EXTRAPACKAGE}" \
-    --exclude=./var \
+    --exclude=./var/log \
     --exclude=./pub/media \
     --exclude=./artifacts \
     --exclude=./tmp \
