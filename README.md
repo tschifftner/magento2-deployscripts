@@ -25,3 +25,39 @@ zettr documentation
  - Environment Settings
  - Database updates
  - XmlFile configuration
+ 
+
+## Installation
+
+Add this package to your Magento composer.json:
+
+```
+"require": {
+    "tschifftner/magento2-deployscripts": "dev-master"
+ },
+```
+
+To use zettr with Magento2 you need to add it too (respository is required
+as long as the pull request is not merged)
+```
+"require": {
+    "aoepeople/zettr": "@dev"
+ },
+   "repositories": {
+     "0": {
+       "type": "vcs",
+       "url": "https://github.com/tschifftner/magento2-module-tschifftner-deployhelper.git"
+     }
+   },
+```
+
+As there is a bug within Magento you currently require also
+```
+"require": {
+    "tschifftner/magento2-module-tschifftner-deployhelper": "dev-master"
+ },
+```
+
+## Author Information
+
+ - [Tobias Schifftner](https://twitter.com/tschifftner), [ambimax® GmbH](https://www.ambimax.de)
