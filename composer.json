@@ -6,7 +6,7 @@
   "require": {
     "magento/magento-composer-installer": "*",
     "php": "~5.5.0|~5.6.0|~7.0.0",
-    "tschifftner/magento2-module-tschifftner-deployhelper": "*"
+    "tschifftner/magento2-module-tschifftner-deployhelper": "dev-master"
   },
   "repositories": {
     "0": {
