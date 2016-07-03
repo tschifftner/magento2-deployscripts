@@ -61,7 +61,7 @@ if [ ! -z ${GIT_REVISION} ] ; then echo "Revision: ${GIT_REVISION}" >> pub/versi
 # Create package
 if [ ! -d "artifacts/" ] ; then mkdir artifacts/ ; fi
 
-tmpfile=$(tempfile -p build_tar_base_files_)
+tmpfile=$(mktemp -t build_tar_base_files_)
 
 # Backwards compatibility in case tar_excludes.txt doesn't exist
 if [ ! -f "config/tar_excludes.txt" ] ; then
