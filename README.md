@@ -48,7 +48,7 @@ as long as the pull request is not merged)
    "repositories": {
      "0": {
        "type": "vcs",
-       "url": "https://github.com/tschifftner/magento2-module-tschifftner-deployhelper.git"
+       "url": "https://github.com/tschifftner/zettr.git"
      }
    },
 ```
@@ -59,6 +59,10 @@ As there is a bug within Magento you currently require also
     "tschifftner/magento2-module-tschifftner-deployhelper": "dev-master"
  },
 ```
+
+## License
+
+[GNU General Public License v3.0](http://choosealicense.com/licenses/gpl-3.0/)
 
 ## Author Information
 
