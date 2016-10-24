@@ -47,8 +47,8 @@ if [ ! -f 'pub/index.php' ] ; then echo "Could not find pub/index.php"; exit 1 ;
 
 # Prepare for production
 touch .maintenance.flag
-php bin/magento setup:di:compile
-php bin/magento setup:static-content:deploy
+#php bin/magento setup:di:compile
+#php bin/magento setup:static-content:deploy
 
 # Write file: build.txt
 echo "${BUILD_NUMBER}" > build.txt
@@ -61,7 +61,7 @@ if [ ! -z ${GIT_REVISION} ] ; then echo "Revision: ${GIT_REVISION}" >> pub/versi
 # Create package
 if [ ! -d "artifacts/" ] ; then mkdir artifacts/ ; fi
 
-tmpfile=$(mktemp -t build_tar_base_files_)
+tmpfile=$(mktemp)
 
 # Backwards compatibility in case tar_excludes.txt doesn't exist
 if [ ! -f "config/tar_excludes.txt" ] ; then
