@@ -59,6 +59,7 @@ echo "Setting symlink (${RELEASEFOLDER}/pub/media) to shared media folder (${SHA
 ln -s "${SHAREDFOLDER}/media" "${RELEASEFOLDER}/pub/media"  || { echo "Error while linking to shared media directory" ; exit 1; }
 
 echo "Setting symlink (${RELEASEFOLDER}/var/log) to shared var folder (${SHAREDFOLDER}/var/log)"
+mkdir -p "${RELEASEFOLDER}/var"
 ln -s "${SHAREDFOLDER}/var/log" "${RELEASEFOLDER}/var/log"  || { echo "Error while linking to shared var directory" ; exit 1; }
 
 
