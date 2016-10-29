@@ -12,7 +12,9 @@ vendor/bin/build.sh -f project.tar.gz -b 3
 ```
 
 2) Generated build is copied to a central storage server
+
 3) Jenkins copies/pulls deploy.sh to remote server
+
 4) deploy.sh is executed on remote server and initiates install.sh
 ```
 magento2-deployscripts/deploy.sh -r /tmp/artifacts/project.tar.gz -e devbox -d -t /var/www/project/devbox/
