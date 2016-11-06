@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-VALID_ENVIRONMENTS=" production staging devbox latest deploy integration "
+VALID_ENVIRONMENTS=" live production staging devbox latest deploy integration "
+PRODUCTION_ENVIRONMENTS=" live production staging"
 
 MY_PATH=`dirname $(readlink -f "$0")`
 RELEASEFOLDER=$(readlink -f "${MY_PATH}/../../..")
@@ -64,7 +65,7 @@ ln -s "${SHAREDFOLDER}/var/log" "${RELEASEFOLDER}/var/log"  || { echo "Error whi
 
 
 ########################################################################################################################
-# Run upgrade scripts
+# Apply configuration settings
 ########################################################################################################################
 echo
 echo "Applying settings"
@@ -78,6 +79,17 @@ else
 fi
 echo
 
+########################################################################################################################
+# Set production mode
+########################################################################################################################
+echo
+echo "Set deploy mode"
+echo "-----------------"
+if [[ "${PRODUCTION_ENVIRONMENTS}" =~ " ${ENVIRONMENT} " ]] ; then
+    php bin/magento deploy:mode:set production
+else
+    php bin/magento deploy:mode:set developer
+fi
 
 ########################################################################################################################
 # Run upgrade scripts
