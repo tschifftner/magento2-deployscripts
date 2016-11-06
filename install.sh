@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 VALID_ENVIRONMENTS=" live production staging devbox latest deploy integration "
-PRODUCTION_ENVIRONMENTS=" live production staging"
+PRODUCTION_ENVIRONMENTS=" live production staging "
 
 MY_PATH=`dirname $(readlink -f "$0")`
 RELEASEFOLDER=$(readlink -f "${MY_PATH}/../../..")
@@ -53,15 +53,15 @@ if [ ! -d "${SHAREDFOLDER}" ] ; then echo "Shared directory ${SHAREDFOLDER} not 
 if [ ! -d "${SHAREDFOLDER}/media" ] ; then echo "Shared directory ${SHAREDFOLDER}/media not found"; exit 1; fi
 if [ ! -d "${SHAREDFOLDER}/var/log" ] ; then echo "Shared directory ${SHAREDFOLDER}/var/log not found"; exit 1; fi
 
-if [ -d "${RELEASEFOLDER}/pub/media" ]; then echo "Found existing media folder that shouldn't be there"; exit 1; fi
-if [ -d "${RELEASEFOLDER}/var/log" ]; then echo "Found existing var folder that shouldn't be there"; exit 1; fi
+if [ -d "${RELEASEFOLDER}/pub/media" ]; then echo "Found existing pub/media folder that shouldn't be there"; exit 1; fi
+if [ -d "${RELEASEFOLDER}/var/log" ]; then echo "Found existing var/log folder that shouldn't be there"; exit 1; fi
 
 echo "Setting symlink (${RELEASEFOLDER}/pub/media) to shared media folder (${SHAREDFOLDER}/media)"
 ln -s "${SHAREDFOLDER}/media" "${RELEASEFOLDER}/pub/media"  || { echo "Error while linking to shared media directory" ; exit 1; }
 
-echo "Setting symlink (${RELEASEFOLDER}/var/log) to shared var folder (${SHAREDFOLDER}/var/log)"
+echo "Setting symlink (${RELEASEFOLDER}/var/log) to shared var/log folder (${SHAREDFOLDER}/var/log)"
 mkdir -p "${RELEASEFOLDER}/var"
-ln -s "${SHAREDFOLDER}/var/log" "${RELEASEFOLDER}/var/log"  || { echo "Error while linking to shared var directory" ; exit 1; }
+ln -s "${SHAREDFOLDER}/var/log" "${RELEASEFOLDER}/var/log"  || { echo "Error while linking to shared var/log directory" ; exit 1; }
 
 
 ########################################################################################################################
