@@ -86,9 +86,9 @@ echo
 echo "Set deploy mode"
 echo "-----------------"
 if [[ "${PRODUCTION_ENVIRONMENTS}" =~ " ${ENVIRONMENT} " ]] ; then
-    php bin/magento deploy:mode:set production
+    php bin/magento deploy:mode:set production || { echo "Error while settings deploy mode" ; exit 1; }
 else
-    php bin/magento deploy:mode:set developer
+    php bin/magento deploy:mode:set developer || { echo "Error while settings deploy mode" ; exit 1; }
 fi
 
 ########################################################################################################################
