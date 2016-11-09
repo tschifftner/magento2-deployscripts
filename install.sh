@@ -65,6 +65,16 @@ ln -s "${SHAREDFOLDER}/var/log" "${RELEASEFOLDER}/var/log"  || { echo "Error whi
 
 
 ########################################################################################################################
+# Set permissions for directories
+########################################################################################################################
+echo
+echo "Set permissions for directories"
+echo "-----------------"
+mkdir -p ${RELEASEFOLDER}/pub/static &&
+chmod -R 774 ${RELEASEFOLDER}/pub/{media,static} &&
+chmod -R 775 ${RELEASEFOLDER}/var || { echo "Cannot set permissions for directories" ; exit 1; }
+
+########################################################################################################################
 # Apply configuration settings
 ########################################################################################################################
 echo
@@ -80,6 +90,17 @@ fi
 echo
 
 ########################################################################################################################
+# Run upgrade scripts
+########################################################################################################################
+
+echo
+echo "Triggering Magento setup scripts via magento-cli"
+echo "------------------------------------------------"
+cd -P "${RELEASEFOLDER}/" || { echo "Error while switching to htdocs directory" ; exit 1; }
+php bin/magento setup:upgrade --keep-generated || { echo "Error while triggering the update scripts using magento-cli" ; exit 1; }
+
+
+########################################################################################################################
 # Set production mode
 ########################################################################################################################
 echo
@@ -90,16 +111,6 @@ if [[ "${PRODUCTION_ENVIRONMENTS}" =~ " ${ENVIRONMENT} " ]] ; then
 else
     php bin/magento deploy:mode:set developer || { echo "Error while settings deploy mode" ; exit 1; }
 fi
-
-########################################################################################################################
-# Run upgrade scripts
-########################################################################################################################
-
-echo
-echo "Triggering Magento setup scripts via magento-cli"
-echo "------------------------------------------------"
-cd -P "${RELEASEFOLDER}/" || { echo "Error while switching to htdocs directory" ; exit 1; }
-php bin/magento setup:upgrade --keep-generated || { echo "Error while triggering the update scripts using magento-cli" ; exit 1; }
 
 echo
 echo "Successfully completed installation."
