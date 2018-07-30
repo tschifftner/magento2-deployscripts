@@ -119,11 +119,10 @@ echo
 echo "Applying settings"
 echo "-----------------"
 cd "${PROJECT_WEBROOT}" || error_exit "Error while switching to htdocs directory"
-if [ -f vendor/aoepeople/zettr/zettr.phar ]; then
-    vendor/aoepeople/zettr/zettr.phar apply ${ENVIRONMENT} config/settings.csv  || error_exit "Error while applying settings"
-else
-    bin/apply.php ${ENVIRONMENT} config/settings.csv || error_exit "Error while applying settings"
+if [ ! -f vendor/aoepeople/zettr/zettr.phar ]; then
+    error_exit "Zettr.phar is missing"
 fi
+vendor/aoepeople/zettr/zettr.phar apply ${ENVIRONMENT} config/settings.csv  || error_exit "Error while applying settings"
 echo
 
 

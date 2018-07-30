@@ -105,11 +105,10 @@ else
 
         # Apply db settings
         cd "${RELEASEFOLDER}/" || error_exit "Error while switching to htdocs directory"
-        if [ -f vendor/bin/zettr.phar ]; then
-            vendor/bin/zettr.phar apply --groups db ${ENVIRONMENT} config/settings.csv || error_exit "Error while applying settings"
-        else
-            bin/apply.php ${ENVIRONMENT} config/settings.csv || error_exit "Error while applying settings"
+        if [ ! -f vendor/bin/zettr.phar ]; then
+            error_exit "Zettr.phar is missing"
         fi
+        vendor/bin/zettr.phar apply --groups db ${ENVIRONMENT} config/settings.csv || error_exit "Error while applying settings"
 
         if [ -z "${SYSTEM_STORAGE_ROOT_PATH}" ] ; then
             SYSTEM_STORAGE_ROOT_PATH="/home/projectstorage/${PROJECT}/backup/${MASTER_SYSTEM}"
