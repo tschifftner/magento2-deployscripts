@@ -13,6 +13,7 @@
     "deploy.sh",
     "install.sh",
     "project_reset.sh"
+    "n98-magerun2.phar"
   ],
   "authors":[
     {
