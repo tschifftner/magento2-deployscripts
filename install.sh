@@ -75,6 +75,53 @@ chmod -R 774 ${RELEASEFOLDER}/pub/{media,static} &&
 chmod -R 775 ${RELEASEFOLDER}/var || { echo "Cannot set permissions for directories" ; exit 1; }
 
 ########################################################################################################################
+# Systemstorage
+########################################################################################################################
+echo
+echo "Systemstorage"
+echo "-------------"
+if [[ -n ${SKIPIMPORTFROMSYSTEMSTORAGE} ]]  && ${SKIPIMPORTFROMSYSTEMSTORAGE} ; then
+    echo "Skipping import system storage backup because parameter was set"
+else
+
+    if [ -z "${MASTER_SYSTEM}" ] ; then
+        if [ -f "${RELEASEFOLDER}/config/mastersystem.txt" ] ; then
+            MASTER_SYSTEM=`head -n 1 "${RELEASEFOLDER}/config/mastersystem.txt" | sed "s/,/ /g" | sed "s/\r//"`
+        else
+            MASTER_SYSTEM="production"
+        fi
+    fi
+
+    if [[ " ${MASTER_SYSTEM} " =~ " ${ENVIRONMENT} " ]] ; then
+        echo "Current environment is the master environment. Skipping import."
+    else
+        echo "Current environment is not the master environment. Importing system storage..."
+
+        if [ -z "${PROJECT}" ] ; then
+            if [ ! -f "${RELEASEFOLDER}/config/project.txt" ] ; then error_exit "Could not find project.txt"; fi
+            PROJECT=`cat ${RELEASEFOLDER}/config/project.txt`
+            if [ -z "${PROJECT}" ] ; then error_exit "Error reading project name"; fi
+        fi
+
+        # Apply db settings
+        cd "${RELEASEFOLDER}/" || error_exit "Error while switching to htdocs directory"
+        if [ ! -f vendor/bin/zettr.phar ]; then
+            error_exit "Zettr.phar is missing"
+        fi
+        vendor/bin/zettr.phar apply --groups db ${ENVIRONMENT} config/settings.csv || error_exit "Error while applying settings"
+
+        if [ -z "${SYSTEM_STORAGE_ROOT_PATH}" ] ; then
+            SYSTEM_STORAGE_ROOT_PATH="/home/projectstorage/${PROJECT}/backup/${MASTER_SYSTEM}"
+        fi
+
+        # Import project storage
+        if [ -d "${SYSTEM_STORAGE_ROOT_PATH}" ]; then
+            vendor/bin/project_reset.sh -e ${ENVIRONMENT} -p "${RELEASEFOLDER}/" -s "${SYSTEM_STORAGE_ROOT_PATH}" || error_exit "Error while importing project storage"
+        fi
+    fi
+
+fi
+########################################################################################################################
 # Apply configuration settings
 ########################################################################################################################
 echo
@@ -82,7 +129,6 @@ echo "Applying settings"
 echo "-----------------"
 cd "${RELEASEFOLDER}" || { echo "Error while switching to root directory" ; exit 1; }
 if [ -f config/settings.csv ]; then
-    vendor/bin/zettr.phar apply ${ENVIRONMENT} config/settings.csv --groups db || { echo "Error while applying settings" ; exit 1; }
     vendor/bin/zettr.phar apply ${ENVIRONMENT} config/settings.csv || { echo "Error while applying settings" ; exit 1; }
 else
     echo "No config/settings.csv found!"

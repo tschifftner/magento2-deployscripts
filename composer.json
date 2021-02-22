@@ -1,5 +1,5 @@
 {
-  "name": "tschifftner/magento2-deployscripts",
+  "name": "ambimax/magento2-deployscripts",
   "description": "Collection of scripts for Magento 2 builds and deployments",
   "type": "magento2-component",
   "version": "100.0.1",
@@ -11,7 +11,9 @@
     "build.sh",
     "cleanup.sh",
     "deploy.sh",
-    "install.sh"
+    "install.sh",
+    "project_reset.sh",
+    "n98-magerun2.phar"
   ],
   "authors":[
     {
